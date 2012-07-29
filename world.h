@@ -8,7 +8,7 @@ public:
     World();
 
     //drawWorld() will print the world ASCII to the screen, in the future there could be a function for random world generation which would return a buffer to be drawn by drawWorld().
-    void drawWorld(int width, int height) const;
+    void drawWorld(WINDOW *dungeon, int width, int height) const;
 private:
     //Many different world attributes could go here: size, 'type', level, a map buffer, etc.
 };
