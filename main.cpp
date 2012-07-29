@@ -3,24 +3,14 @@
 #include "world.h"
 
 /* You may need to include your ncurses headers, these files were made using pdcurses. */
-WINDOW  *createWindow(int height, int width, int y, int x) {
-    WINDOW *window;
-    window = newwin(height, width, y, x);
-    wrefresh(window);
-    return window;
-}
+WINDOW  *createWindow(int height, int width, int y, int x);
+void initScreen();
 
 
 WINDOW *dungeon;
 WINDOW *message;
 int main(){
-    initscr();
-    start_color();
-    noecho();
-    raw();
-    nodelay(stdscr, true);
-    keypad(stdscr, true);
-    curs_set(0);
+    initScreen();
 
     int width;
     int height;
@@ -28,14 +18,14 @@ int main(){
 
     dungeon = createWindow(height, width/2, 0, 0);
     message = createWindow(height, width/2, 0, width/2);
-    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+
     wcolor_set(message, 1, 0);
 
     int cx = dungeon->_maxx/2;
     int cy = dungeon->_maxy/2;
     int c;
 
-    World world;
+    World *world = new World;
 
     while(((c=getch()))!=27){
         switch(c) {
@@ -68,7 +58,7 @@ int main(){
             cx++;
     */
 
-        world.drawWorld(dungeon, width/2, height);
+        world->drawWorld(dungeon, width/2, height);
 
         mvwprintw(dungeon, cy, cx, "@");
         mvwprintw(message, 1, 1, "This is a test message in green!");
@@ -76,8 +66,27 @@ int main(){
         wrefresh(dungeon);
         wrefresh(message);
     }
-
+    delete world;
+    delwin(dungeon);
+    delwin(message);
     endwin();
     return 0;
 }
 
+WINDOW  *createWindow(int height, int width, int y, int x) {
+    WINDOW *window;
+    window = newwin(height, width, y, x);
+    wrefresh(window);
+    return window;
+}
+
+void initScreen() {
+    initscr();
+    start_color();
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    noecho();
+    raw();
+    nodelay(stdscr, true);
+    keypad(stdscr, true);
+    curs_set(0);
+}
