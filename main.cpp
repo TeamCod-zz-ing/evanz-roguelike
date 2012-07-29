@@ -3,7 +3,7 @@
 #include "world.h"
 
 /* You may need to include your ncurses headers, these files were made using pdcurses. */
-extern WINDOW  *createWindow(int height, int width, int y, int x) {
+WINDOW  *createWindow(int height, int width, int y, int x) {
     WINDOW *window;
     window = newwin(height, width, y, x);
     wrefresh(window);
