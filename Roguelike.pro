@@ -17,14 +17,14 @@ TEMPLATE = app
 QMAKE_LFLAGS += -static-libgcc -static-libstdc++ -static
 
 SOURCES += main.cpp \
-    world.cpp \
     gui/screen.cpp
 
 HEADERS += \
-    world.h \
     gui/screen.h
 
 LIBS += -lpdcurses
+
+
 
 
 

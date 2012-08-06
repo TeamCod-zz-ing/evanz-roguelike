@@ -4,20 +4,22 @@
 #include <curses.h>
 #include <string>
 
+enum {DUNGEON, LOG, STATUS};
+
 class Screen
 {
 public:
     Screen();
     ~Screen();
-    WINDOW* createWindow(int height, int width, int y, int x);
+    void createWindow(int windowType);
     int height() {return m_height;}
     int width() {return m_width;}
-    void print(WINDOW* window, const char* msg);
-
+    WINDOW* dungeon() {return m_dungeon;}
+    void print(const char* msg);
+    void drawWorld(int cy, int cx);
 private:
-    WINDOW* m_map;
+    WINDOW* m_dungeon;
     WINDOW* m_log;
-    WINDOW* m_status;
     int m_height;
     int m_width;
 };
